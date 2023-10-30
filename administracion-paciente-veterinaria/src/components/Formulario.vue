@@ -25,7 +25,14 @@ const props = defineProps({
 	},
 });
 
-defineEmits(['update:nombre', 'update:propietario', 'update:email', 'update:alta', 'update:sintomas']);
+const emit = defineEmits([
+	'update:nombre',
+	'update:propietario',
+	'update:email',
+	'update:alta',
+	'update:sintomas',
+	'guardar-paciente',
+]);
 
 const alerta = reactive({
 	mensaje: '',
@@ -39,7 +46,14 @@ const validar = () => {
 		return;
 	}
 
-	console.log('Agregando pacientes');
+	emit('guardar-paciente', 123);
+	(alerta.mensaje = 'Paciente almacenado correctamente'), (alerta.tipo = 'exito');
+	setTimeout(() => {
+		Object.assign(alerta, {
+			tipo: '',
+			mensaje: '',
+		});
+	}, 3000);
 };
 </script>
 <template>
